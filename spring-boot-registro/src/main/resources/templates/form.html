@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+		<br/>
+		<h3  th:if="${cliente.id > 0}" th:text="'Editar '+${titulo}" class="text-secondary border border-success 
+		   border-top-0 border-left-0 border-right-0"></h3>
+		<h3  th:if="${cliente.id == 0 || cliente.id == null}" th:text="'Guardar '+${titulo}" class="text-secondary border border-success 
+		   border-top-0 border-left-0 border-right-0"></h3>
+		   <br/>
+		<!-- 1 se coloca la ruta del formulario -->
+		<!-- 2 se coloca el objeto que tiene en el model el string -->
+		<!-- 3 se coloca el metodo definido en el backEnd -->
+		<form th:action="@{/form}" th:object=${cliente} method="post"
+			enctype="multipart/form-data">
+			<div class="row">
+				<div class="col">
+					<div class="form-group">
+						<label for="nombre">Nombre:</label> <input type="text"
+							th:field="*{nombre}" class="form-control" id="nombre">
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<label for="apellido">Apellido:</label> <input type="text"
+							th:field="*{apellido}" class="form-control" id="apellido">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="form-group">
+						<label for="email">Correo:</label> <input type="email"
+							th:field="*{email}" class="form-control" id="email">
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<label for="file" class="col-sm-2 col-form-label">Foto</label>
+						<input type="file" name="file" class="form-control" />
+					</div>
+				</div>
+			</div>
+			<br/> 
+			<input type="submit" value="Guardar cliente" th:if="${cliente.id == 0 || cliente.id ==null}" class="btn btn-primary"/>
+			<input type="submit" value="Modificar cliente" th:if="${cliente.id > 0}" class="btn btn-success"/> 
+			<input type="hidden" th:field="*{id}" class="form-control">
+		</form>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

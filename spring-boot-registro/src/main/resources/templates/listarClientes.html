@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+		<h1	class="text-secondary border border-success border-top-0 border-left-0 border-right-0" th:text="${titulo}"></h1>
+		<a th:href="@{/form}" class="btn btn-primary">Guardar Nuevo	Cliente</a> <br /> <br />
+		<table class="table table-striped">
+			<thead class="table-dark text-ligth">
+				<tr>
+					<th></th>
+					<th>Nombre Completo</th>
+					<th>Email</th>
+					<th>Crear Factura</th>
+					<th>Modificar Cliente</th>
+					<th>Eliminar Cliente</th>
+					<th>Detalle Cliente</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cli: ${clientes}">
+					<td>
+						<div th:if="${cli.foto != null || cli.foto == 0}">
+							<img th:src="@{'/upload/'+${cli.foto}}" th:alt="${cli.foto}"
+								class="imgRedonda">
+						</div>
+						<div th:if="${cli.foto == null || cli.foto == ''}">
+							<img th:src="@{'/imagenes/user-solid.svg'}" class="imgRedonda">
+						</div>
+					</td>
+					<td th:text="${cli.nombre}+' '+${cli.apellido}"></td>
+					<td th:text="${cli.email}"></td>
+					<td>
+						<a th:href="@{'/factura/form/'+${cli.id}}" 
+						   th:text="'crear factura'" class="btn btn-primary"></a>
+					</td>
+					<td>
+						<a th:href="@{/form/}+${cli.id}"
+						   th:text="'Modificar Cliente'" class="btn btn-success"></a>
+					</td>
+					<td>
+						<a th:href="@{/eliminar/}+${cli.id}"
+						th:text="'Eliminar Cliente'" class="btn btn-danger"
+						onclick="return confirm('Desea eliminar el cliente')"></a>
+					</td>
+					<td><a th:href="@{/detalleCliente/}+${cli.id}"
+						th:text="'Detalle Cliente'" class="btn btn-dark"></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

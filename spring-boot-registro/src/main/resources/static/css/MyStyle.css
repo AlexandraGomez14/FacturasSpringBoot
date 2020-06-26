@@ -1,0 +1,6 @@
+.imgRedonda {
+    width:65px;
+    height:65px;
+    border-radius:150px;
+}
+.caja { float:left;margin-left:5px; background: red; }
